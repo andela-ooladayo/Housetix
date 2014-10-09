@@ -15,6 +15,11 @@ var AccomodationSchema = new Schema({
 		type: Date,
 		default: Date.now
 	},
+	tag: {
+		type: String,
+		trim: true,
+		required: 'tag field cannot be blank'
+	},
 	roomNo: {
 		type: String,
 		default: '',
@@ -39,24 +44,12 @@ var AccomodationSchema = new Schema({
 		trim: true,
 		required: 'location field cannot be blank'
 	},
-	imageURL: {
-		frontview:{
-			type: String,
-			required: 'frontview field cannot be blank'
-		},
-		toilet:{
-			type: String,
-			required: 'toilet field cannot be blank'
-		},
-		kitchen:{
-			type: String,
-			required: 'kitchen field cannot be blank'
-		},
-		interior:{
-			type: String,
-			required: 'interior cannot be blank'
+	image: [{
+	    path: {
+		   type: String,
+		   required: 'Uploaded an image cannot be blank'
 		}
-	},
+	}],
 	user: {
 		type: Schema.ObjectId,
 		ref: 'Agent'

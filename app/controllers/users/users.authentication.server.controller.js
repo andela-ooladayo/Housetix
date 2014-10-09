@@ -3,26 +3,43 @@
 /**
  * Module dependencies.
  */
+
 var _ = require('lodash'),
-	errorHandler = require('../errors'),
+    errorHandler = require('../errors'),
 	mongoose = require('mongoose'),
 	passport = require('passport'),
-	User = mongoose.model('users');
+	Agent = mongoose.model('Agent'),
+	User = mongoose.model('User'),
+	Customer = mongoose.model('Customer');
 
 /**
  * Signup
  */
+
 exports.signup = function(req, res) {
 	// For security measurement we remove the roles from the req.body object
+	console.log(req);
 	delete req.body.roles;
 
 	// Init Variables
-	var user = new User(req.body);
+	var type = req.body.type;
+	console.log(type);
+	var user;
+	//Selecting the Schema to input user's profile
+	if (type === 'Agent') {
+		user = new Agent(req.body);
+		user.displayName = user.firstName + ' ' + user.lastName;
+	}
+	else {
+		user = new Customer(req.body);
+		user.displayName = user.yourName;
+
+	}
 	var message = null;
 
 	// Add missing user fields
 	user.provider = 'local';
-	user.displayName = user.firstName + ' ' + user.lastName;
+	
 
 	// Then save the user 
 	user.save(function(err) {
@@ -30,7 +47,8 @@ exports.signup = function(req, res) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
-		} else {
+		}
+		else {
 			// Remove sensitive data before login
 			user.password = undefined;
 			user.salt = undefined;
@@ -38,7 +56,8 @@ exports.signup = function(req, res) {
 			req.login(user, function(err) {
 				if (err) {
 					res.status(400).send(err);
-				} else {
+				}
+				else {
 					res.jsonp(user);
 				}
 			});
@@ -49,11 +68,13 @@ exports.signup = function(req, res) {
 /**
  * Signin after passport authentication
  */
+
 exports.signin = function(req, res, next) {
 	passport.authenticate('local', function(err, user, info) {
 		if (err || !user) {
 			res.status(400).send(info);
-		} else {
+		}
+		else {
 			// Remove sensitive data before login
 			user.password = undefined;
 			user.salt = undefined;
@@ -61,7 +82,8 @@ exports.signin = function(req, res, next) {
 			req.login(user, function(err) {
 				if (err) {
 					res.status(400).send(err);
-				} else {
+				}
+				else {
 					res.jsonp(user);
 				}
 			});
@@ -72,6 +94,7 @@ exports.signin = function(req, res, next) {
 /**
  * Signout
  */
+
 exports.signout = function(req, res) {
 	req.logout();
 	res.redirect('/');
@@ -80,6 +103,7 @@ exports.signout = function(req, res) {
 /**
  * OAuth callback
  */
+
 exports.oauthCallback = function(strategy) {
 	return function(req, res, next) {
 		passport.authenticate(strategy, function(err, user, redirectURL) {
@@ -100,6 +124,7 @@ exports.oauthCallback = function(strategy) {
 /**
  * Helper function to save or update a OAuth user profile
  */
+
 exports.saveOAuthUserProfile = function(req, providerUserProfile, done) {
 	if (!req.user) {
 		// Define a search query fields
@@ -123,7 +148,8 @@ exports.saveOAuthUserProfile = function(req, providerUserProfile, done) {
 		User.findOne(searchQuery, function(err, user) {
 			if (err) {
 				return done(err);
-			} else {
+			}
+			else {
 				if (!user) {
 					var possibleUsername = providerUserProfile.username || ((providerUserProfile.email) ? providerUserProfile.email.split('@')[0] : '');
 
@@ -143,12 +169,14 @@ exports.saveOAuthUserProfile = function(req, providerUserProfile, done) {
 							return done(err, user);
 						});
 					});
-				} else {
+				}
+				else {
 					return done(err, user);
 				}
 			}
 		});
-	} else {
+	}
+	else {
 		// User is already logged in, join the provider data to the existing user
 		var user = req.user;
 
@@ -165,7 +193,8 @@ exports.saveOAuthUserProfile = function(req, providerUserProfile, done) {
 			user.save(function(err) {
 				return done(err, user, '/#!/settings/accounts');
 			});
-		} else {
+		}
+		else {
 			return done(new Error('User is already connected using this provider'), user);
 		}
 	}
@@ -174,6 +203,7 @@ exports.saveOAuthUserProfile = function(req, providerUserProfile, done) {
 /**
  * Remove OAuth provider
  */
+
 exports.removeOAuthProvider = function(req, res, next) {
 	var user = req.user;
 	var provider = req.param('provider');
@@ -192,11 +222,13 @@ exports.removeOAuthProvider = function(req, res, next) {
 				return res.status(400).send({
 					message: errorHandler.getErrorMessage(err)
 				});
-			} else {
+			}
+			else {
 				req.login(user, function(err) {
 					if (err) {
 						res.status(400).send(err);
-					} else {
+					}
+					else {
 						res.jsonp(user);
 					}
 				});

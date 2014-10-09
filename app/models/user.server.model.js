@@ -23,33 +23,18 @@ var validateLocalStrategyPassword = function(password) {
 };
 
 /**
- * Agent Schema
+ * Users Schema
  */
 
 
-var CustomerSchema = new Schema({
+var UserSchema = new Schema({
 	username: {
 		type: String,
 		unique: 'testing error message',
 		required: 'Please fill in a username',
 		trim: true
 	},
-	firstName: {
-		type: String,
-		trim: true,
-		default: '',
-		validate: [validateLocalStrategyProperty, 'Please fill in your first name']
-	},
-	lastName: {
-		type: String,
-		trim: true,
-		default: '',
-		validate: [validateLocalStrategyProperty, 'Please fill in your last name']
-	},
-	displayName: {
-		type: String,
-		trim: true
-	},
+	
 	email: {
 		type: String,
 		trim: true,
@@ -96,7 +81,20 @@ var CustomerSchema = new Schema({
 },{ collection : 'users', discriminatorKey : '_type' });
 
 
-var AgentSchema = CustomerSchema.extend({
+var AgentSchema = UserSchema.extend({
+	firstName: {
+		type: String,
+		trim: true,
+		default: '',
+		validate: [validateLocalStrategyProperty, 'Please fill in your first name']
+	},
+	lastName: {
+		type: String,
+		trim: true,
+		default: '',
+		validate: [validateLocalStrategyProperty, 'Please fill in your last name']
+	},
+	
 	phoneNumber: {
 		type: String,
 		trim: true,
@@ -115,12 +113,25 @@ var AgentSchema = CustomerSchema.extend({
 	},
 });
 
+var CustomerSchema = UserSchema.extend({
+	yourName: {
+		type: String,
+		trim: true,
+		default: '',
+		validate: [validateLocalStrategyProperty, 'Please fill in your yourName']
+	},
+	displayName: {
+		type: String,
+		trim: true
+	}
+});
+
 /**
  * Hook a pre save method to hash the password
  */
- // var CombineSchema = AgentSchema || CustomerSchema;
 
-CustomerSchema.pre('save', function(next) {
+
+UserSchema.pre('save', function(next) {
 	if (this.password && this.password.length > 6) {
 		this.salt = new Buffer(crypto.randomBytes(16).toString('base64'), 'base64');
 		this.password = this.hashPassword(this.password);
@@ -133,6 +144,20 @@ CustomerSchema.pre('save', function(next) {
  * Create instance method for hashing a password
  */
  
+UserSchema.methods.hashPassword = function(password) {
+	if (this.salt && password) {
+		return crypto.pbkdf2Sync(password, this.salt, 10000, 64).toString('base64');
+	} else {
+		return password;
+	}
+};
+AgentSchema.methods.hashPassword = function(password) {
+	if (this.salt && password) {
+		return crypto.pbkdf2Sync(password, this.salt, 10000, 64).toString('base64');
+	} else {
+		return password;
+	}
+};
 CustomerSchema.methods.hashPassword = function(password) {
 	if (this.salt && password) {
 		return crypto.pbkdf2Sync(password, this.salt, 10000, 64).toString('base64');
@@ -144,6 +169,13 @@ CustomerSchema.methods.hashPassword = function(password) {
 /**
  * Create instance method for authenticating user
  */
+UserSchema.methods.authenticate = function(password) {
+	return this.password === this.hashPassword(password);
+};
+
+AgentSchema.methods.authenticate = function(password) {
+	return this.password === this.hashPassword(password);
+};
 CustomerSchema.methods.authenticate = function(password) {
 	return this.password === this.hashPassword(password);
 };
@@ -151,6 +183,42 @@ CustomerSchema.methods.authenticate = function(password) {
 /**
  * Find possible not used username
  */
+UserSchema.statics.findUniqueUsername = function(username, suffix, callback) {
+	var _this = this;
+	var possibleUsername = username + (suffix || '');
+
+	_this.findOne({
+		username: possibleUsername
+	}, function(err, user) {
+		if (!err) {
+			if (!user) {
+				callback(possibleUsername);
+			} else {
+				return _this.findUniqueUsername(username, (suffix || 0) + 1, callback);
+			}
+		} else {
+			callback(null);
+		}
+	});
+};
+AgentSchema.statics.findUniqueUsername = function(username, suffix, callback) {
+	var _this = this;
+	var possibleUsername = username + (suffix || '');
+
+	_this.findOne({
+		username: possibleUsername
+	}, function(err, user) {
+		if (!err) {
+			if (!user) {
+				callback(possibleUsername);
+			} else {
+				return _this.findUniqueUsername(username, (suffix || 0) + 1, callback);
+			}
+		} else {
+			callback(null);
+		}
+	});
+};
 CustomerSchema.statics.findUniqueUsername = function(username, suffix, callback) {
 	var _this = this;
 	var possibleUsername = username + (suffix || '');
@@ -170,5 +238,7 @@ CustomerSchema.statics.findUniqueUsername = function(username, suffix, callback)
 	});
 };
 
-mongoose.model('users', CustomerSchema);
+
+mongoose.model('User', UserSchema);
 mongoose.model('Agent', AgentSchema);
+mongoose.model('Customer', CustomerSchema);

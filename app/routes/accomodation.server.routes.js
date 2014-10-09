@@ -8,11 +8,11 @@ var users = require('../../app/controllers/users'),
 
 module.exports = function(app) {
 	// Article Routes
-	app.route('/accomodation')
+	app.route('/accomodations')
 		.get(accomodations.list)
 		.post(users.requiresLogin, accomodations.create);
 
-	app.route('/accomodation/:accomodationId')
+	app.route('/accomodations/:accomodationId')
 		.get(accomodations.read)
 		.put(users.requiresLogin, accomodations.hasAuthorization, accomodations.update)
 		.delete(users.requiresLogin, accomodations.hasAuthorization, accomodations.delete);

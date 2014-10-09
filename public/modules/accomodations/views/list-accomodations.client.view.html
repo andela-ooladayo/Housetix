@@ -1,0 +1,26 @@
+<section data-ng-controller="AccomodationsController" data-ng-init="find()">
+    <div class="page-header">
+        <h1>Accomodations</h1>
+    </div>
+    <div class="list-group">
+        <a data-ng-repeat="accomodation in accomodations" data-ng-href="#!/accomodations/{{accomodation._id}}" class="list-group-item">
+            <h4 class="list-group-item-heading" data-ng-bind="accomodation.tag"></h4>
+			<small class="list-group-item-text">
+				Posted on
+				<span data-ng-bind="accomodation.created | date:'medium'"></span>
+
+			</small>
+
+            <div>
+            
+            <div name="price" data-ng-model="accomodation.price">
+                Price:::{{accomodation.price}} 
+            </div>
+            </div>
+			
+        </a>
+    </div>
+    <div class="alert alert-warning text-center" data-ng-hide="!accomodations.$resolved || accomodations.length">
+    	No Accomodations yet, why don't you <a href="/#!/accomodations/create">create one</a>?
+    </div>
+</section>

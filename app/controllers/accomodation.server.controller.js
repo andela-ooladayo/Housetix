@@ -6,107 +6,35 @@
 var mongoose = require('mongoose'),
     errorHandler = require('./errors'),
     Accomodation = mongoose.model('Accomodation'),
-    User=mongoose.model('users'),
-    _ = require('lodash'),
-    formidable = require('formidable'),
-    util = require('util')
-    fs   = require('fs-extra'),
-    qt   = require('quickthumb');
+    User=mongoose.model('User'),
+    _ = require('lodash');
+
+var uuid = require('node-uuid'),
+    multiparty = require('multiparty'),
+    async=require('async');
+
+var path = require('path'),
+    fs = require('fs');
+
 
 /**
- * Create a Accomodation
+ * Create an accomodation
  */
-var uploadImage = function(req, res, contentType, tmpPath, destPath) {
-    // Server side file type checker.
-    if (contentType !== 'image/png' && contentType !== 'image/jpeg') {
-        fs.unlink(tmpPath);
-        return res.send(400, { 
-            message: 'Unsupported file type. Only jpeg or png format allowed' 
-        });
-    } else {
-        fs.readFile(tmpPath , function(err, data) {
-            fs.writeFile(destPath, data, function(err) {
-                if (err) {
-                   return res.send(400, { message: 'Destination path doesn\'t exist.' });
-                }
-                else {
-                  destPath = 
-                }
-            }); 
-        });
-    }
-};
 
-
-
-
-
-
-
-
-
-exports.create = function(req, res, contentType, tmpPath, destPath) {
-    var form = new multiparty.Form();
-    form.parse(req, function(err, fields, files) {
-        
-    if (files.file) {
-        //if there is a file do upload
-        var file = files.file[0],     contentType = file.headers['content-type'],
-            tmpPath = file.path,      extIndex = tmpPath.lastIndexOf('.'),
-            extension = (extIndex < 0) ? '' : tmpPath.substr(extIndex);
-
-        // uuid is for generating unique filenames. 
-        var fileName = uuid.v4() + extension;
-        
-        var destPath =  'public/modules/core/img/server/Temp/' + fileName;
-             
-        uploadImage(req, res, contentType, tmpPath, destPath, person, experience);
-    } 
-
-   }
+exports.create = function(req, res) {
     var accomodation = new Accomodation(req.body);
-    accomodation.user = req.user;
-    accomodation.save(function(err) {
+    accomodation.user = req.user.id;
+    accomodation.save(function(err, house) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
             });
-        } else {
-            res.jsonp(accomodation);
+        }
+        else {
+            res.jsonp(house);
         }
     });
 };
-/**
- * Create a Accomodation
- */
-exports.upload = function(req, res) {
-    var form = new formidable.IncomingForm();
-    form.parse(req, function(err, fields, files) {
-    res.writeHead(200, {'content-type': 'text/plain'});
-    res.write('received upload:\n\n');
-    res.end(util.inspect({
-        fields: fields, files: files}));
-    });
-
-  form.on('end', function(fields, files) {
-    /* Temporary location of our uploaded file */
-    var temp_path = this.openedFiles[0].path;
-    /* The file name of the uploaded file */
-    var file_name = this.openedFiles[0].name;
-    /* Location where we want to copy the uploaded file */
-    var new_location = 'uploadapp/uploads/';
-
-    fs.copy(temp_path, new_location + file_name, function(err) {  
-      if (err) {
-        console.error(err);
-      } else {
-        console.log("success!")
-      }
-    });
-  });
-});
-
-
 /**
  * Show the current Accomodation
  */
@@ -127,7 +55,8 @@ exports.update = function(req, res) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
             });
-        } else {
+        } 
+        else {
             res.jsonp(accomodation);
         }
     });
@@ -144,7 +73,8 @@ exports.delete = function(req, res) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
             });
-        } else {
+        }
+        else {
             res.jsonp(accomodation);
         }
     });
@@ -154,12 +84,14 @@ exports.delete = function(req, res) {
  * List of Accomodation
  */
 exports.list = function(req, res) {
+    
     Accomodation.find().sort('-created').populate('user', 'displayName').exec(function(err, accomodations) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
             });
-        } else {
+        }
+        else {
             res.jsonp(accomodations);
         }
     });
@@ -174,11 +106,13 @@ exports.search = function(req, res) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
             });
-            } else {
+            }
+            else {
                 res.jsonp(data);
             }
         });
-    } else {
+    }
+    else {
         res('Not found');
     }
 };
