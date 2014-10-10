@@ -11,4 +11,8 @@ angular.module('accomodations').factory('Accomodations', ['$resource',
 			}
 		});
 	}
+]).factory('Search', ['$resource',
+	function($resource) {
+		return $resource('search/');
+	}
 ]);

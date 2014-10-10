@@ -16,6 +16,10 @@
             <div name="price" data-ng-model="accomodation.price">
                 Price:::{{accomodation.price}} 
             </div>
+            <div name="photo" data-ng-model="accomodation.image[0].path">
+                <img data-ng-src="{{accomodation.image[0].path}}" style="width:100px;height:100px">
+            </div>
+
             </div>
 			
         </a>

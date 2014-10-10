@@ -116,6 +116,28 @@ exports.search = function(req, res) {
         res('Not found');
     }
 };
+
+exports.deletePhoto = function(req, res){
+    console.log(req);
+    var photos = req.photos;
+
+    photos.remove(function(err) {
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        }
+        else {
+            res.jsonp(photos);
+        }
+    });
+
+
+};
+
+
+
+
 /**
  * Accomodation middleware
  */

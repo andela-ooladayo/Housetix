@@ -17,37 +17,37 @@ angular.module('accomodations').controller('AccomodationsController', ['$scope',
                  console.log($scope.datas);
                  $scope.house='';
                 
-                 $location.path('/');
+                 // $location.path('/');
             }, function(error) {
                   console.log(error);
 			});
 		};
 
    	    $scope.onFileSelect = function ($files) {
-                $scope.uploadProgress = 0;
-                $scope.files = $files;
-                $scope.stringFiles = [];
-                // console.log($scope.files); 
+            $scope.uploadProgress = 0;
+            $scope.files = $files;
+            $scope.stringFiles = [];
+            // console.log($scope.files); 
+        	if ($scope.files) {
+        		for (var i in $scope.files) {
+        			console.log($scope.files);
+	                if ($scope.files[i].type === 'image/jpeg' || $scope.files[i].type === 'image/png' || $scope.files[i].size < 60000){
+	                    var reader = new FileReader();
+	                    reader.onload = function(e) {
+                            $scope.stringFiles.push({path: e.target.result});
+	                    };
+	                    reader.readAsDataURL($scope.files[i]);
+	                    $scope.correctFormat = true; 
+	                } else {
+	                	alert('error');
 
-            	if ($scope.files) {
-            		for (var i in $scope.files) {
-            			console.log($scope.files);
-		                if ($scope.files[i].type === 'image/jpeg' || $scope.files[i].type === 'image/png' || $scope.files[i].size < 60000){
-		                    var reader = new FileReader();
-		                    reader.onload = function(e) {
-                                $scope.stringFiles.push({path: e.target.result});
-		                    };
-		                    reader.readAsDataURL($scope.files[i]);
-		                    $scope.correctFormat = true; 
-		                } else {
-		                	alert('error');
-
-		                   $scope.correctFormat = false; 
-		                }
-		            }
+	                   $scope.correctFormat = false; 
+	                }
 	            }
+            }
 
           };
+          
 
 		// Remove existing Accomodation
 		$scope.remove = function(accomodation) {
@@ -65,7 +65,10 @@ angular.module('accomodations').controller('AccomodationsController', ['$scope',
 				});
 			}
 		};
-
+		$scope.removephoto = function(image){
+			
+		};
+ 
 		// Update existing Accomodation
 		$scope.update = function() {
 
@@ -86,8 +89,8 @@ angular.module('accomodations').controller('AccomodationsController', ['$scope',
 				accomodationId: $stateParams.accomodationId
 				},
 				function success(reply){
-					$scope.datas=reply.image;
-					console.log($scope.datas);
+					$scope.accomodation=reply;
+					console.log($scope.accomodation);
 				}
 				);
 
@@ -99,7 +102,8 @@ angular.module('accomodations').controller('AccomodationsController', ['$scope',
 				function success(response) {
 					console.log(response);
 					$scope.accomodations = response;
-					console.log($scope.accomodations);
+					$scope.photos=response.image;
+					console.log($scope.photos);
 				},
 				function(err) {
 					console.log(err);
@@ -111,11 +115,13 @@ angular.module('accomodations').controller('AccomodationsController', ['$scope',
 		$scope.findOne = function() {
 			$scope.accomodation = Accomodations.get({ 
 				accomodationId: $stateParams.accomodationId
+			}, function(response){
+				$scope.photos=$scope.accomodation.image;
+				console.log($scope.photos);
 			});
+			
 		};
 
-		$scope.search = function(){
-
-		};
+		
 	}
 ]);

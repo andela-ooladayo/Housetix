@@ -13,3 +13,17 @@
 .ng-valid.ng-dirty{
     border-color:#78FA89;
 }
+.search{
+	width:50%;
+	height: 100px;
+	background:rgba(255,255,255,0.5);
+	margin: 0 auto;
+}
+#inputBox,#search{
+	width:40%;
+	margin-top: 7%;
+	height: 30px;
+}
+#inputBox{
+	width:90%;
+}

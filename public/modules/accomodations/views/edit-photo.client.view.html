@@ -1,18 +1,20 @@
-<section data-ng-controller="AccomodationsController" data-ng-init="editPhoto()">
+<section data-ng-controller="AccomodationsController" data-ng-init="findOne()">
     <div class="page-header">
         <h1>Edit Photo</h1>
     </div>
 
-                    <div class="controls"> 
-                        <div data-ng-repeat="data in photos">
-                        <img data-ng-src="{{data.path}}"   style="height:200px; width:200px;" >  
-                    </div>
-                        
-                          
-                    </div>
-    <div class="col-md-12">
-        
-        
+        <div class="controls"> 
+            <div data-ng-repeat="photo in photos" ng-model="photos">
 
+            <img data-ng-src="{{photo.path}}"   style="height:200px; width:200px;" > 
+                <a class="btn btn-primary" data-ng-click="removephoto();">
+                <i class="glyphicon glyphicon-trash"></i>
+            </a> 
+        </div>
+            
+              
+        </div>
+    <div class="col-md-12">
+    
     </div>
 </section>

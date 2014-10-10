@@ -22,7 +22,7 @@ angular.module('accomodations').config(['$stateProvider',
 			templateUrl: 'modules/accomodations/views/edit-accomodation.client.view.html'
 		}).
 		state('editPhoto', {
-			url: '/editPhoto',
+			url: '/accomodations/:accomodationId/editPhoto',
 			templateUrl: 'modules/accomodations/views/edit-photo.client.view.html'
 		});
 	}
