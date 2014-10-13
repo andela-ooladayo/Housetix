@@ -20,5 +20,16 @@
 			by
 			<span data-ng-bind="accomodation.user.displayName"></span>
 		</em>
+		<div>
+            
+            <div name="price" data-ng-model="accomodation.price">
+                Price:::{{accomodation.price}} 
+            </div>
+            <div name="address" data-ng-bind="accomodation.address"></div>
+            <div name="photo" data-ng-repeat="photo in accomodation.image">
+                <img data-ng-src="{{photo.path}}" style="width:100px;height:100px">
+            </div>
+
+            </div>
 	</small>
 </section>

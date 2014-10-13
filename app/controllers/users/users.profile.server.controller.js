@@ -66,6 +66,7 @@ exports.agentByID = function(req, res, next, id) {
 };
 
 exports.getByUserId = function(req, res) {
+	console.log(req);
 	Accomodation.where('user').equals(req.user._id).exec(function(err, accomodation){
 
 		if (err) {

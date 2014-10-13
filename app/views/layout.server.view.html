@@ -42,13 +42,16 @@
 	<![endif]-->
 </head>
 
-<body class="ng-cloak">
+<body class="ng-cloak" style="width:100%" >
 	<!-- header data-ng-include="'/modules/core/views/header.client.view.html'" class="navbar navbar-fixed-top navbar-inverse"></header -->
 	<header data-ng-include="'/modules/core/views/header.client.view.html'"></header>
-	<section class="content">
-		<section class="container">
+
+	<section class="content" >
+		
+		<section class="container"  style="background:url('../modules/core/img/brand/homepage.jpg'),no-repeat;margin-top:5%;height:380px;width:100%; margin-top:5%"; background-size="100%,100%">
 			{% block content %}{% endblock %}
 		</section>
+
 	</section>
 
 	<!--Embedding The User Object-->
@@ -64,9 +67,19 @@
 	<!--Livereload script rendered -->
 	<script type="text/javascript" src="http://localhost:35729/livereload.js"></script>
 	
-	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA-UVIqIRJeYCEIqUmUnB_iwLGv-gB_e2c&sensor=FALSE&libraries=places"></script>
-
-	{% endif %}
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA-UVIqIRJeYCEIqUmUnB_iwLGv-gB_e2c&sensor=FALSE&libraries=places"></script> 
 </body>
 
 </html>
+
+	<!-- <link href="https://a2.muscache.com/airbnb/static/packages/common_o2.1-e1810bf80694762a67af4e7720a22be2.css" media="all" rel="stylesheet" type="text/css" />
+
+	<link href="https://a1.muscache.com/airbnb/static/rooms/new-9fa5b12fc37c2a9137bcd15206d0ceeb.css" media="screen" rel="stylesheet" type="text/css" /> -->
+	
+    <!--<![endif]
+
+      
+
+
+
+	{% endif %}

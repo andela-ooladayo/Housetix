@@ -1,37 +1,48 @@
-<section class="row" data-ng-controller="AuthenticationController">
-	<h3 class="col-md-12 text-center">Sign up using your social accounts</h3>
-	<div class="col-md-12 text-center">
-		
-	</div>
-	<h3 class="col-md-12 text-center">Or with your email</h3>
-	<div class="col-xs-offset-2 col-xs-8 col-md-offset-5 col-md-2">
-		<form name="userForm" data-ng-submit="signup()" class="signin form-horizontal" novalidate autocomplete="off">
-			<fieldset>
-				<div class="form-group">
-					<label for="username">Username</label>
-					<input type="text" id="username" name="username" class="form-control" data-ng-model="credentials.username" placeholder="Username">
-				</div>
-				<div class="form-group">
-					<label for="lastName">Full Name</label>
-					<input type="text" id="lastName" name="lastName" class="form-control" data-ng-model="credentials.yourName" placeholder="Last Name">
-				</div>
-				<div class="form-group">
-					<label for="email">Email</label>
-					<input type="email" id="email" name="email" class="form-control" data-ng-model="credentials.email" placeholder="Email">
-				</div>
-				
-				<div class="form-group">
-					<label for="password">Password</label>
-					<input type="password" id="password" name="password" class="form-control" data-ng-model="credentials.password" placeholder="Password">
-				</div>
-				<div class="text-center form-group">
+<div ng-controller="ModalDemoCtrl" data-ng-init="open()">
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Sign up</h3>
+        </div>
+        <div class="modal-body">
+            <section class="row" data-ng-controller="AuthenticationController">
+				<form class="form-horizontal" role="form" data-ng-submit="signup()">
+				  <div class="form-group">
+				    <label for="username" class="col-sm-2 control-label">Username</label>
+				    <div class="col-sm-5">
+				      <input type="text" class="form-control" id="username" placeholder="Username" data-ng-model="credentials.username">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label for="fullname" class="col-sm-2 control-label">Full Name</label>
+				    <div class="col-sm-5">
+				      <input type="text" class="form-control" id="fullname" placeholder="Full Name" data-ng-model="credentials.yourName">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label for="email" class="col-sm-2 control-label">Email</label>
+				    <div class="col-sm-5">
+				      <input type="email" class="form-control" id="email" placeholder="Email" data-ng-model="credentials.email">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label for="password" class="col-sm-2 control-label">Password</label>
+				    <div class="col-sm-5">
+				      <input type="password" class="form-control" id="password" placeholder="Password" data-ng-model="credentials.password">
+				    </div>
+				  </div>
+				  <div class="text-center form-group">
 					<button type="submit" class="btn btn-large btn-primary">Sign up</button>&nbsp; or&nbsp;
-					<a href="/#!/signin" class="show-signup">Sign in</a>
-				</div>
-				<div data-ng-show="error" class="text-center text-danger">
+						<a href="/#!/signin" class="show-signup" ng-click="cancel()">Sign in</a>
+					</div>
+				  <div data-ng-show="error" class="text-center text-danger">
 					<strong data-ng-bind="error"></strong>
-				</div>
-			</fieldset>
-		</form>
-	</div>
-</section>
+				  </div>
+				</form>
+			</section>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+</div>

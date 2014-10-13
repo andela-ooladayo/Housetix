@@ -24,6 +24,10 @@ angular.module('accomodations').config(['$stateProvider',
 		state('editPhoto', {
 			url: '/accomodations/:accomodationId/editPhoto',
 			templateUrl: 'modules/accomodations/views/edit-photo.client.view.html'
+		}).
+		state('search', {
+			url:'/search',
+			templateUrl:'modules/accomodations/views/search-accomodation.client.view.html'
 		});
 	}
 ]);

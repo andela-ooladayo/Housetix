@@ -10,10 +10,10 @@ module.exports = function(app) {
 	var agents = require('../../app/controllers/users');
 
 	// Setting up the users profile api
-	app.route('/agent/me').get(agents.me);
-	app.route('/agent').put(agents.update);
-	app.route('/agent/accounts').delete(agents.removeOAuthProvider);
-	app.route('/agent/:agentId/accomodation').get(agents.getByUserId);
+	app.route('/users/me').get(agents.me);
+	app.route('/users').put(agents.update);
+	app.route('/users/accounts').delete(agents.removeOAuthProvider);
+	app.route('/users/accomodation').get(agents.getByUserId);
 
 	// Setting up the users password api
 	app.route('/users/password').post(agents.changePassword);
@@ -30,5 +30,5 @@ module.exports = function(app) {
 
 	// Finish by binding the user middleware
 	
-	app.param('agentId', agents.agentByID);
+	app.param('userId', agents.agentByID);
 };

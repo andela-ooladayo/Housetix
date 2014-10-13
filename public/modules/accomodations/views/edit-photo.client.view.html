@@ -4,10 +4,10 @@
     </div>
 
         <div class="controls"> 
-            <div data-ng-repeat="photo in photos" ng-model="photos">
+            <div data-ng-repeat="photo in accomodation.image" >
 
             <img data-ng-src="{{photo.path}}"   style="height:200px; width:200px;" > 
-                <a class="btn btn-primary" data-ng-click="removephoto();">
+                <a class="btn btn-primary" data-ng-click="deletePhoto();">
                 <i class="glyphicon glyphicon-trash"></i>
             </a> 
         </div>

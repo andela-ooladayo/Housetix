@@ -15,4 +15,22 @@ angular.module('accomodations').factory('Accomodations', ['$resource',
 	function($resource) {
 		return $resource('search/');
 	}
+]).factory('Agent', ['$resource',
+	function($resource) {
+		return $resource('users/accomodation',
+			{
+				update:{
+					method:'PUT'
+				}
+			});
+	}
+]).factory('Photo', ['$resource',
+	function($resource){
+		return $resource('/accomodations/editPhoto',
+			{
+				update:{
+					method:'PUT'
+				}
+			});
+	}
 ]);
