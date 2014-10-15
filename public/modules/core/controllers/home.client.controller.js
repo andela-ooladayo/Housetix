@@ -3,13 +3,15 @@
 
 angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'Search',
 	function($scope, Authentication, Search) {
+
 		 // This provides Authentication context.
 		$scope.authentication = Authentication;
-		
+
+		// This initialialize address auto-complete context
 		 $scope.initializeSearch = function(){
     		var address = (document.getElementById('inputBox'));
     		var autocomplete = new google.maps.places.Autocomplete(address);
-		      autocomplete.setTypes(['geocode']);
+		    autocomplete.setTypes(['geocode']);
 		    console.log(google)
 		    google.maps.event.addListener(autocomplete, 'place_changed', function() {
 		      	var place = autocomplete.getPlace();
@@ -28,26 +30,18 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     		});
   		};
 
+  		// Search by Location
 		$scope.search = function(){
-			console.log('here');
 			Search.query({ 
 				location: $scope.inputBox
 				},
-				function(reply){
+				function (reply){
 					$scope.accomodation=reply;
-					$scope.pictures=reply.image;
-					console.log(reply.image);
-					console.log($scope.accomodation);
+					$scope.photos=reply.image;	
 				},
-				function error(){
-					console.log(error);
-				}
-				);
-
-			
+				function (res){
+					$scope.error = res.message;
+				});
 		};
-
-
 	}
-
 ]);

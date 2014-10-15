@@ -118,21 +118,27 @@ exports.search = function(req, res) {
     }
 };
 
-exports.deletePhoto = function(req, res) {
-    console.log(req.accomodation);
-    var accomodation = req.accomodation;
-    // accomodation.image.slice=accomodation.image.slice(index,1)
-    
-    accomodation.save(function(err) {
-        if (err) {
-            return res.status(400).send({
-                message: errorHandler.getErrorMessage(err)
-            });
-        } 
-        else {
-            res.jsonp(accomodation);
-        }
-    });
+
+exports.deletePhoto = function (req, res) {
+    console.log('req');
+    Accomodation.findById(req.body.accomodationId).populate('user', 'displayName').exec(
+        function(err, accomodation){
+            if(err){
+                console.log(err);
+                return;
+            }
+            accomodation.image.splice(req.body.index, 1);
+            accomodation.save(function(err) {
+                if (err) {
+                    return res.status(400).send({
+                        message: errorHandler.getErrorMessage(err)
+                    });
+                } 
+                else {
+                    res.jsonp(accomodation);
+                }
+            }); 
+        });
 };
 
 

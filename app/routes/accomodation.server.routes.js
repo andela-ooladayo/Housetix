@@ -16,8 +16,8 @@ module.exports = function(app) {
 		.get(accomodations.read)
 		.put(users.requiresLogin, accomodations.hasAuthorization, accomodations.update)
 		.delete(users.requiresLogin, accomodations.hasAuthorization, accomodations.delete);
-	app.route('/accomodations/editPhoto')
-		.get(users.requiresLogin, accomodations.hasAuthorization, accomodations.deletePhoto);
+	app.route('/accomodations/:accomodationId/editPhoto')
+		.post(accomodations.deletePhoto);
 	
 	app.route('/search')
 		.get(accomodations.search);

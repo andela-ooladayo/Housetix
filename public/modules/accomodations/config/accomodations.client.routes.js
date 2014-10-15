@@ -28,6 +28,11 @@ angular.module('accomodations').config(['$stateProvider',
 		state('search', {
 			url:'/search',
 			templateUrl:'modules/accomodations/views/search-accomodation.client.view.html'
+		}).
+		state('myrent',{
+			url:'/myrent',
+			templateUrl:'modules/accomodations/views/myrent-accomodation.client.view.html'
 		});
+		
 	}
 ]);

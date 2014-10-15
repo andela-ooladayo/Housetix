@@ -1,52 +1,96 @@
-<section data-ng-controller="AccomodationsController"  class="searchTemplate">
+<section data-ng-controller="HomeController"  class="searchTemplate" data-ng-init="initializeSearch()">
     <div class="searchContainer">
         <div id="locationSearch">
             <div id="loc">
                 <h3>Location</h3>
                 
             </div>
-
+            
             <div id="inp">
-                <input type="text" id="inputCircle">
+                <input type="text" id="location" data-ng-model="inputBox">
                     
                 </input>
             </div>
              
             <div id="sub">
-                <input type="submit">
+                <input type="submit" data-ng-click="search()">
                 
                 </input>
             </div>
+            
 
         </div> 
 
-        <div id="displaySearch">
-            <div id="content">
-                <div id="head">
-                    
-                </div>
-
-                <div id="body">
-                    <div class="bodyleft">
-                        
+        <div id="displaySearch" >
+            
+            <div class="container" >
+                 <div class="row" data-ng-repeat="search in accomodation">
+                 <div data-ng-show="error" class="text-center text-danger">
+                    <strong data-ng-bind="error">SEARCH NOT FOUND.TRY ANOTHER LOCATION</strong>
+                 </div>
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 ">
+                        <div class="panel panel-primary">
+                            <div class="row padall">
+                                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3" data-ng-model="photos">
+                                    <span></span>
+                                    <img data-ng-src="{{search.image[0].path}}" />
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+                                    <div class="clearfix">
+                                        <div class="pull-left">
+                                            <span class="fa fa-dollar icon"> {{search.price}}</span>
+                                        </div>
+                                        <div class="pull-right">
+                                            {{search.tag}}                                
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h4><i class="icon-large icon-search"></i></span>{{search.address}}</h4>
+                                         <span class="fa fa-search icon pull-right" style="text-transform:uppercase">{{search.location}}</span>
+                                    </div>
+                                </div>    
+                            </div>
+                        </div>
                     </div>
-
-                    <div class="bodyright">
-                       <div class="brname">
-                           
-                       </div>
-                       <div class="brprice">
-                           
-                       </div> 
-                    </div>
                 </div>
+            </div>    
+        </div>
 
-            </div>
+        <style>
+        img {
+            max-width: 110%;
+            height: auto;      
+        }
 
-            <div id="filter">
-                
-            </div>
+        .clearfix {
+            clear:both;
+        }
 
+        .rowcolor {
+            background-color:#CCCCCC;
+        }
+
+        .padall {
+            padding:10px;
+        }
+
+        .icon {
+            /*font-size:23px;
+            color:#197BB5;*/
+        }
+       #displaySearch .container .row:hover{
+            overflow: auto;
+            -webkit-transform: scale(1.1);
+            -moz-transform: scale(1.1);
+            -ms-transform: scale(1.1);
+            -o-transform: scale(1.1);
+            transform: rotate scale(1.1);
+            -webkit-transition: all 0.4s ease-in-out;
+            -moz-transition: all 0.4s ease-in-out;
+            -o-transition: all 0.4s ease-in-out;
+            transition: all 0.4s ease-in-out;
+        }
+        </style>
         </div>      
     </div>
 </section>

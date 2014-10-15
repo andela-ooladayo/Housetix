@@ -1,178 +1,80 @@
-<section data-ng-controller="AccomodationsController" data-ng-init="initializeSearch()" class="createNew">
-    
+<section data-ng-controller="AccomodationsController" >
+    <div class="container">
+        <div class="row">
+            <form role="form" name="accomodationForm" class="form-horizontal" data-ng-submit="create()"> 
+                <div class="row row-space-top-6 row-space-6">
+                    <div class="col-4 col-middle text-center">
+                        <h1 class="h2">Add Your Space</h1>
+                        <p class="text-lead">
+                        Housetix lets you make money renting out your place.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-middle">
+                    <div class="well well-sm"><strong><span class="glyphicon glyphicon-asterisk"></span>Required Field</strong></div>
+                    <div class="form-group">
+                        <label for="tag">Tag</label>
+                        <div class="input-group">
+                            <input name="tag" type="text" data-ng-model="house.tag" id="location_input" class="form-control" placeholder="Short description" required >
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="roomNo">Number of Space</label>
+                        <div class="input-group">
+                            <input name="roomNo" type="text" data-ng-model="house.roomNo" id="location_input" class="form-control" placeholder="Number of rooms" required>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                        </div>
+                    </div>
 
-   
-        <form name="accomodationForm" class="form-horizontal" data-ng-submit="create()" novalidate>
-            <fieldset>
-                <div class="form-group" ng-class="{ 'has-error': accomodationForm.title.$dirty && accomodationForm.title.$invalid }">
+                    <div class="form-group">
+                        <label for="location">Location</label>
+                        <div class="input-group">
+                            <input name="location" type="text" data-ng-model="house.location" id="location" class="form-control" placeholder="Location" required>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="price">Price</label>
+                        <div class="input-group">
+                            <input name="price" type="text" data-ng-model="house.price" id="location_input" class="form-control" placeholder="price" required>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                        </div>
+                    </div>
                     
-               
-<div class="page-container-full">
-    <div class="panel lys-panel-header">
-        <div class="panel-light panel-body">
-        
-      <div class="row row-space-top-6 row-space-6">
-        <div class="col-4 col-middle text-center">
-          <h1 class="h2">Add Your Space</h1>
-          <p class="text-lead">
-            Housetix lets you make money renting out your place.
-          </p>
-        </div>
-      </div>
-      <div></div>
-    </div>
-
-    <div>
-      <div>
-
-<div class="row row-space-5 row-space-top-5 row-table">
-    <div class="col-3 text-right col-middle">
-        <div class="h4 text-light">Type</div>
-    </div>
-    <div class="col-2 fieldset fieldset_city col-middle">
-        <div class="row">
-            <div class="col-6">
-                <div class="panel location">
-                    <div class="panel-body panel-light panel-border location-panel-body">
-                        <i class="icon icon icon-map-marker icon-kazan h4 pull-left"></i>
-                        <input name="tag" type="text"  data-ng-model="house.tag" id="location_input"  placeholder="Tag" />
-
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <div class="input-group">
+                            <textarea name="address" type="text" data-ng-model="house.address" id="location_input" class="form-control" placeholder="Address" row="2"required></textarea>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                        </div>
+                    </div>
+                    <div class="row row-space-5 row-space-top-5 row-table">
+                        <div class="col-3 text-right col-middle">
+                            <div class="h4 text-light">Photos</div>
+                        </div>
+                        <div class="col-9 fieldset fieldset_city col-middle">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="panel location">
+                                        <div class="panel-body panel-light panel-border location-panel-body">
+                                            <i class="icon icon icon-map-marker icon-kazan h4 pull-left"></i>
+                                            <input type="file" ng-file-select="onFileSelect($files)" multiple accept="image/*">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-default">
+                    </div>
+                    <div data-ng-show="error" class="text-danger">
+                            <strong data-ng-bind="error"></strong>
                     </div>
                 </div>
-            </div>
+            </form>
+            </center>
         </div>
-    </div>
-</div>
-
-<div class="row row-space-5 row-space-top-5 row-table">
-    <div class="col-3 text-right col-middle">
-        <div class="h4 text-light">Number of Room(s)</div>
-    </div>
-    <div class="col-9 fieldset fieldset_city col-middle">
-        <div class="row">
-            <div class="col-6">
-                <div class="panel location">
-                    <div class="panel-body panel-light panel-border location-panel-body">
-                        <i class="icon icon icon-map-marker icon-kazan h4 pull-left"></i>
-                        <input name="roomNo" type="text" data-ng-model="house.roomNo" id="location_input" class="form-control" placeholder="Number of rooms"  />
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row row-space-5 row-space-top-5 row-table">
-    <div class="col-3 text-right col-middle">
-        <div class="h4 text-light">Address</div>
-    </div>
-    <div class="col-9 fieldset fieldset_city col-middle">
-        <div class="row">
-            <div class="col-6">
-                <div class="panel location">
-                    <div class="panel-body panel-light panel-border location-panel-body">
-                        <i class="icon icon icon-map-marker icon-kazan h4 pull-left"></i>
-                        <input name="address" type="text" data-ng-model="house.address" id="location_input" class="form-control" placeholder="Address"  />
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row row-space-5 row-space-top-5 row-table"  >
-    <div class="col-3 text-right col-middle">
-        <div class="h4 text-light">Location</div>
-    </div>
-    <div class="col-9 fieldset fieldset_city col-middle">
-        <div class="row">
-            <div class="col-6">
-                <div class="panel location">
-                    <div class="panel-body panel-light panel-border location-panel-body">
-                        <i class="icon icon icon-map-marker icon-kazan h4 pull-left"></i>
-                        <input name="location" type="text" data-ng-model="house.location" id="location" class="form-control" placeholder="Location" />
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row row-space-5 row-space-top-5 row-table">
-    <div class="col-3 text-right col-middle">
-        <div class="h4 text-light">Price</div>
-    </div>
-    <div class="col-9 fieldset fieldset_city col-middle">
-        <div class="row">
-            <div class="col-6">
-                <div class="panel location">
-                    <div class="panel-body panel-light panel-border location-panel-body">
-                        <i class="icon icon icon-map-marker icon-kazan h4 pull-left"></i>
-                        <input name="price" type="text" data-ng-model="house.price" id="location_input" class="form-control" placeholder="price" />
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row row-space-5 row-space-top-5 row-table">
-    <div class="col-3 text-right col-middle">
-        <div class="h4 text-light">Photos</div>
-    </div>
-    <div class="col-9 fieldset fieldset_city col-middle">
-        <div class="row">
-            <div class="col-6">
-                <div class="panel location">
-                    <div class="panel-body panel-light panel-border location-panel-body">
-                        <i class="icon icon icon-map-marker icon-kazan h4 pull-left"></i>
-                        <input type="file" ng-file-select="onFileSelect($files)" multiple accept="image/*">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-    <div class="form-group">
-        <input type="submit" class="btn btn-default">
-    </div>
-    <div data-ng-show="error" class="text-danger">
-            <strong data-ng-bind="error"></strong>
-    </div>
-</form>
-</div>
-</div>
-
-    <div class="panel-light panel-body">
-      <div class="page-container">
-        <div class="row row-space-2 row-space-top-5">
-          <div class="col-4 text-center">
-            <i class="icon icon-handshake icon-rausch icon-size-4"></i>
-            <h3>Trust & Safety</h3>
-            <p>
-              Trust & safety tools help you accept a booking only if you're 100% comfortable.
-            </p>
-          </div>
-          <div class="col-4 text-center">
-            <i class="icon icon-host-guarantee icon-rausch icon-size-4"></i>
-            <h3>$1,000,000 Host Guarantee</h3>
-            <p>Your peace of mind is priceless. So we don't charge for it. Every <a href='/terms/host_guarantee'>eligible</a> booking on Airbnb is covered by our Host Guarantee - at no additional cost to you.</p>
-          </div>
-          <div class="col-4 text-center">
-            <i class="icon icon-lock icon-rausch icon-size-4"></i>
-            <h3>Secure Payments</h3>
-            <p>
-              Our fast, flexible payment system puts money in your bank account 24 hours after guests check in.
-            </p>
-
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
- </div>
-</fieldset>
-</form>
 </section>

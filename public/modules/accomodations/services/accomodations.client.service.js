@@ -13,7 +13,7 @@ angular.module('accomodations').factory('Accomodations', ['$resource',
 	}
 ]).factory('Search', ['$resource',
 	function($resource) {
-		return $resource('search/');
+		return $resource('/search');
 	}
 ]).factory('Agent', ['$resource',
 	function($resource) {
@@ -26,7 +26,9 @@ angular.module('accomodations').factory('Accomodations', ['$resource',
 	}
 ]).factory('Photo', ['$resource',
 	function($resource){
-		return $resource('/accomodations/editPhoto',
+		return $resource('/accomodations/:accomodationId/editPhoto', {
+			accomodationId: '@accomodationId'
+		},
 			{
 				update:{
 					method:'PUT'

@@ -7,9 +7,10 @@
             <div data-ng-repeat="photo in accomodation.image" >
 
             <img data-ng-src="{{photo.path}}"   style="height:200px; width:200px;" > 
-                <a class="btn btn-primary" data-ng-click="deletePhoto();">
+                <a class="btn btn-primary" data-ng-click="deletePhoto($index);">
                 <i class="glyphicon glyphicon-trash"></i>
-            </a> 
+                </a>
+            </img> 
         </div>
             
               

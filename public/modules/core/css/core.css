@@ -113,7 +113,7 @@ header{
 }
 .searchContainer{
 	width:100%;
-	height:500px;
+	
 	display:block;
 	background:lightgreen;
 }
@@ -122,8 +122,6 @@ header{
 	width: 100%;
 	background-color: #01A0E1;
 	border: 1px solid blue;
-
-	
 }
 
 #locationSearch div{
@@ -134,8 +132,6 @@ header{
 	margin-left: 5%;
 	width: 8%;
 	color: white;
-
-
 }
 #locationSearch #loc h3{
 	padding-top: .5%;
@@ -171,68 +167,7 @@ header{
 	border:none;
 }
 #displaySearch{
-	height:400px;
+	margin-top: 4%;
 	width: 100%;
 	background-color:white;
 }
-#displaySearch #content{
-	width:65%;
-	height: 400px;
-	background-color: ;
-	margin-left: 1%;
-}
-#displaySearch #filter{
-	width:32%;
-	height: 400px;
-	background-color: lightgray;
-}
-#displaySearch #content, #displaySearch #filter{
-	display: inline-block;
-}
-#content #head{
-	height: 50px;
-	border:1px solid gray;
-}
-#content #body{
-	height: 300px;
-	border:1px solid gray;
-	margin-top: 2%;
-}
-#body .bodyleft{
-	width:40%;
-	height: 270px;
-	margin: 1%;
-	border:1px solid gray;
-}
-#body .bodyright{
-	width:55%;
-	height: 270px;
-	
-	
-}
-#body .bodyright,#body .bodyleft{
-	display: inline-block;
-	
-
-} 
-#body .bodyright .brname, #body .bodyright .brprice{
-	display: inline-block;
-	width:48%;
-	border:1px solid gray;
-	height: 270px;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

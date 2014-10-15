@@ -1,32 +1,10 @@
 'use strict';
 
 // Accomodations controller
-angular.module('accomodations').controller('AccomodationsController', ['$scope', '$stateParams','$location', '$upload', 'Authentication', 'Accomodations','Agent','Photo',
+angular.module('accomodations').controller('AccomodationsController', ['$scope','$stateParams','$location', '$upload', 'Authentication', 'Accomodations','Agent','Photo',
 	function($scope, $stateParams, $location, $upload, Authentication, Accomodations, Agent, Photo) {
 		$scope.authentication = Authentication;
-
-		$scope.initializeSearch = function(){
-    		var address = (document.getElementById('location'));
-    		var autocomplete = new google.maps.places.Autocomplete(address);
-		      autocomplete.setTypes(['geocode']);
-		    console.log(google)
-		    google.maps.event.addListener(autocomplete, 'place_changed', function() {
-		      	var place = autocomplete.getPlace();
-		      	if (!place.geometry) {
-		            return;
-		      	}
-		    	$scope.place = place.formatted_address;
-		     	var address = '';
-	      		if (place.address_components) {
-	        		address = [
-		         	 	(place.address_components[0] && place.address_components[0].short_name || ''),
-		          		(place.address_components[1] && place.address_components[1].short_name || ''),
-		          		(place.address_components[2] && place.address_components[2].short_name || '')
-	        		].join(' ');
-	      		}
-    		});
-  		};
-
+  	
 		// Create new Accomodation
 		$scope.create = function() {
 			// Create new Accomodation object
@@ -88,20 +66,28 @@ angular.module('accomodations').controller('AccomodationsController', ['$scope',
 				});
 			}
 		};
-		$scope.deletePhoto = function() {
-			var accomodation = $scope.accomodation;
-			
-			accomodation.$update(function (response) {
-	
-				console.log(response);
+
+
+
+
+		$scope.deletePhoto = function(index) {
+			var photo = new Photo({ 
+				accomodationId: $stateParams.accomodationId,
+				index: index
 			});
-				
-				
+
+			photo.$save(function(response){
+				console.log(response)
+			});
+        	
+
+    	};
+	
 			// }, function(errorResponse) {
 			// 	$scope.error = errorResponse.data.message;
 			// };
 
-		};
+		
  
 		//Update existing Accomodation
 		$scope.update = function() {
