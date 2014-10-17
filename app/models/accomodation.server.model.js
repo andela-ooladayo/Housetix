@@ -1,15 +1,22 @@
 'use strict';
 
-/**
- * Module dependencies.
- */
+/******
+
+Module dependencies.
+
+*******/
+
 var mongoose = require('mongoose'),
 	Schema = mongoose.Schema,
 	searchPlugin = require('mongoose-search-plugin');
 
-/**
- * Accomodation Schema
- */
+
+/*******
+
+Accomodation Schema
+
+********/
+
 var AccomodationSchema = new Schema({
 	created: {
 		type: Date,
@@ -47,7 +54,6 @@ var AccomodationSchema = new Schema({
 	image: [{
 	    path: {
 		   type: String,
-		   required: 'Uploaded an image cannot be blank'
 		}
 	}],
 	user: {

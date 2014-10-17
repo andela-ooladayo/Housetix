@@ -1,30 +1,45 @@
 'use strict';
 
-/**
- * Module dependencies.
- */
+/*****
+
+ Module dependencies.
+
+******/
 var mongoose = require('mongoose'),
 	Schema = mongoose.Schema,
 	crypto = require('crypto'),
 	extend = require('mongoose-schema-extend');
 
-/**
- * A Validation function for local strategy properties
- */
+
+/*****
+
+A Validation function for local strategy properties
+
+*******/
 var validateLocalStrategyProperty = function(property) {
 	return ((this.provider !== 'local' && !this.updated) || property.length);
 };
 
-/**
- * A Validation function for local strategy password
- */
+
+
+/******
+
+A Validation function for local strategy password
+
+*******/
+
+
 var validateLocalStrategyPassword = function(password) {
 	return (this.provider !== 'local' || (password && password.length > 6));
 };
 
-/**
- * Users Schema
- */
+
+
+/********
+
+Users Schema(Agent Schema and Customer Schema)
+
+**********/
 
 
 var UserSchema = new Schema({
@@ -81,6 +96,12 @@ var UserSchema = new Schema({
 },{ collection : 'users', discriminatorKey : '_type' });
 
 
+/********
+
+Agent Schema(Extension of Users Schema)
+
+**********/
+
 var AgentSchema = UserSchema.extend({
 	firstName: {
 		type: String,
@@ -113,12 +134,19 @@ var AgentSchema = UserSchema.extend({
 	},
 });
 
+
+/********
+
+Customer Schema(Extension of Users Schema)
+
+**********/
+
 var CustomerSchema = UserSchema.extend({
 	yourName: {
 		type: String,
 		trim: true,
 		default: '',
-		validate: [validateLocalStrategyProperty, 'Please fill in your yourName']
+		validate: [validateLocalStrategyProperty, 'Please fill in your name']
 	},
 	displayName: {
 		type: String,
@@ -126,10 +154,12 @@ var CustomerSchema = UserSchema.extend({
 	}
 });
 
-/**
- * Hook a pre save method to hash the password
- */
 
+/******
+
+Hook a pre save method to hash the password
+
+*******/
 
 UserSchema.pre('save', function(next) {
 	if (this.password && this.password.length > 6) {
@@ -140,9 +170,13 @@ UserSchema.pre('save', function(next) {
 	next();
 });
 
-/**
- * Create instance method for hashing a password
- */
+
+
+/*******
+
+Create instance method for hashing a password
+
+********/
  
 UserSchema.methods.hashPassword = function(password) {
 	if (this.salt && password) {
@@ -166,9 +200,13 @@ CustomerSchema.methods.hashPassword = function(password) {
 	}
 };
 
-/**
- * Create instance method for authenticating user
- */
+
+/******
+
+Create instance method for authenticating user
+
+********/
+
 UserSchema.methods.authenticate = function(password) {
 	return this.password === this.hashPassword(password);
 };
@@ -180,9 +218,13 @@ CustomerSchema.methods.authenticate = function(password) {
 	return this.password === this.hashPassword(password);
 };
 
-/**
- * Find possible not used username
- */
+
+/******
+
+Find possible not used username
+
+*******/
+
 UserSchema.statics.findUniqueUsername = function(username, suffix, callback) {
 	var _this = this;
 	var possibleUsername = username + (suffix || '');
@@ -237,7 +279,6 @@ CustomerSchema.statics.findUniqueUsername = function(username, suffix, callback)
 		}
 	});
 };
-
 
 mongoose.model('User', UserSchema);
 mongoose.model('Agent', AgentSchema);

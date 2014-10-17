@@ -16,6 +16,9 @@ angular.module('core').controller('HeaderController', ['$scope', 'Authentication
 		});
 	}
 ]);
+
+
+// Modal Controller
 angular.module('users').controller('ModalDemoCtrl', function ($scope, $location, $modal, $log) {
 
   $scope.items = ['item1', 'item2', 'item3'];
@@ -26,6 +29,8 @@ angular.module('users').controller('ModalDemoCtrl', function ($scope, $location,
       templateUrl: 'myModalContent.html',
       controller: 'ModalInstanceCtrl',
       size: size,
+      backdrop:'static',
+      keyboard:false,
       resolve: {
         items: function () {
           return $scope.items;
@@ -41,9 +46,8 @@ angular.module('users').controller('ModalDemoCtrl', function ($scope, $location,
   };
 });
 
-// Please note that $modalInstance represents a modal window (instance) dependency.
-// It is not the same as the $modal service used above.
 
+//Modal instance Controller
 angular.module('users').controller('ModalInstanceCtrl', function ($scope, $location, $modalInstance, items) {
 
   $scope.items = items;
@@ -56,7 +60,8 @@ angular.module('users').controller('ModalInstanceCtrl', function ($scope, $locat
     $modalInstance.close($scope.selected.item);
     
   };
-
+  
+  //Modal cancel
   $scope.cancel = function () {
   	 $location.path('/');
     $modalInstance.dismiss('cancel');

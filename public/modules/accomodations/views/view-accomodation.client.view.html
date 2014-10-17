@@ -1,35 +1,42 @@
-<section data-ng-controller="AccomodationsController" data-ng-init="findOne()">
+<!--  View Accomodation section-->
+<section id="displaySearch" data-ng-controller="AccomodationsController" data-ng-init="findOne()">
+
+	<!--  Edit Buttons-->
+
 	<div class="page-header">
 		<h1 data-ng-bind="accomodation.tag"></h1>
-	</div>
-	<div class="pull-right" >
-		<a class="btn btn-primary" href="/#!/accomodations/{{accomodation._id}}/edit">
+		<div id="date" data-ng-bind="accomodation.created | date:'mediumDate'"></div>
+
+		<div class="pull-right" >
+		<a class="btn btn-primary" href="/#!/accomodations/{{accomodation._id}}/edit" title="Click to edit this Accomodation">
 			<i class="glyphicon glyphicon-edit"></i>
 		</a>
-		<a class="btn btn-primary" data-ng-click="remove();">
+		<a class="btn btn-primary" data-ng-click="remove();" title="Click to Remove this Accomodation">
 			<i class="glyphicon glyphicon-trash"></i>
 		</a>
-		<a class="btn btn-primary" href="/#!/accomodations/{{accomodation._id}}/editPhoto" >
-			<i class="glyphicon glyphicon-photo"></i>
+		<a class="btn btn-primary" href="/#!/accomodations/{{accomodation._id}}/editPhoto" title="Click to Edit this Image" >
+			<i class="glyphicon glyphicon-trash"></i>
 		</a>
 	</div>
-	<small>
-		<em class="text-muted">
-			Posted on
-			<span data-ng-bind="accomodation.created | date:'mediumDate'"></span>
-			by
-			<span data-ng-bind="accomodation.user.displayName"></span>
-		</em>
+	
+	
+	<small >
+		<!--  Accomodaion Properties-->
 		<div>
-            
-            <div name="price" data-ng-model="accomodation.price">
-                Price:::{{accomodation.price}} 
-            </div>
-            <div name="address" data-ng-bind="accomodation.address"></div>
-            <div name="photo" data-ng-repeat="photo in accomodation.image">
-                <img data-ng-src="{{photo.path}}" style="width:100px;height:100px">
-            </div>
-
-            </div>
+            <div id="price" name="price" data-ng-bind="accomodation.user.price" ></div>
+            <div id="accAddress"  name="address" data-ng-bind="accomodation.address"></div>
+            <div id="accLocation" name="address" data-ng-bind="accomodation.location"></div>
+            <h2 style="color:lightblue">Snapshots</h2>
+            <div class="container" >
+    			<div class="row">
+        			<div class="row">
+            			<div class="col-md-4" data-ng-repeat="photo in accomodation.image">
+            				<img data-ng-src="{{photo.path}}" class="thumbnail img-responsive" alt="Bootstrap template" />
+            			</div>
+        			</div>
+    			</div>
+			</div>
+        </div>
 	</small>
 </section>
+

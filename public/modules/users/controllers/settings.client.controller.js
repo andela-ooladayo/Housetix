@@ -12,7 +12,6 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 			for (var i in $scope.user.additionalProvidersData) {
 				return true;
 			}
-
 			return false;
 		};
 
@@ -20,7 +19,7 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 		$scope.isConnectedSocialAccount = function(provider) {
 			return $scope.user.provider === provider || ($scope.user.additionalProvidersData && $scope.user.additionalProvidersData[provider]);
 		};
-
+		
 		// Remove a user social account
 		$scope.removeUserSocialAccount = function(provider) {
 			$scope.success = $scope.error = null;

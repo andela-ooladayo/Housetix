@@ -1,47 +1,58 @@
 'use strict';
 
 
-angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'Search',
-	function($scope, Authentication, Search) {
+angular.module('core').controller('HomeController', ['$scope', 'Authentication','$location', 'Search','$anchorScroll',
+	function($scope, Authentication, $location, Search, $anchorScroll) {
 
 		 // This provides Authentication context.
-		$scope.authentication = Authentication;
+		$scope.authentication = Authentication
 
-		// This initialialize address auto-complete context
-		 $scope.initializeSearch = function(){
-    		var address = (document.getElementById('inputBox'));
-    		var autocomplete = new google.maps.places.Autocomplete(address);
-		    autocomplete.setTypes(['geocode']);
-		    console.log(google)
-		    google.maps.event.addListener(autocomplete, 'place_changed', function() {
-		      	var place = autocomplete.getPlace();
-		      	if (!place.geometry) {
-		            return;
-		      	}
-		    	$scope.place = place.city;
-		     	var address = '';
-	      		if (place.address_components) {
-	        		address = [
-		         	 	(place.address_components[0] && place.address_components[0].short_name || ''),
-		          		(place.address_components[1] && place.address_components[1].short_name || ''),
-		          		(place.address_components[2] && place.address_components[2].short_name || '')
-	        		].join(' ');
-	      		}
-    		});
-  		};
-
-  		// Search by Location
-		$scope.search = function(){
+  		// Search by Clicking any of the cities
+		$scope.nearSearch = function(locate){
+			$scope.locate = locate
 			Search.query({ 
-				location: $scope.inputBox
+				location: $scope.locate
 				},
 				function (reply){
+					console.log(reply)
 					$scope.accomodation=reply;
 					$scope.photos=reply.image;	
+					$location.hash('displaySearch');
+        			$anchorScroll();
 				},
 				function (res){
 					$scope.error = res.message;
+					$location.hash('displaySearch');
+        			$anchorScroll();
 				});
+		};
+
+		// On Keydown open Search Section
+		$scope.openSearch = function(){
+			$location.path('/search');
+		}
+
+		$scope.gotoBottom = function() {
+        	// set the location.hash to the id of
+        	// the element you wish to scroll to.
+        	$location.hash('displaySearch');
+        	// call $anchorScroll()
+        	$anchorScroll();
+      	};
+
+		// Search by Location
+		$scope.search = function(){
+			Search.query({ 
+				location: $scope.inputBox.toLowerCase()
+				},
+				function (response){
+					$scope.accomodation=response;
+					$scope.photos=response.image;	
+				},
+				function error (res){
+					$scope.error = res.message;
+				}
+			);
 		};
 	}
 ]);

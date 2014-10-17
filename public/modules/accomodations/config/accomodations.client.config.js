@@ -7,7 +7,6 @@ angular.module('accomodations').run(['Menus',
 		Menus.addMenuItem('topbar', 'Accomodations', 'accomodations', 'dropdown', '/accomodations(/create)?');
 		Menus.addSubMenuItem('topbar', 'accomodations', 'List Accomodations', 'accomodations');
 		Menus.addSubMenuItem('topbar', 'accomodations', 'New Accomodation', 'accomodations/create');
-		Menus.addMenuItem('topbar', 'Manage Property', 'property',  '/agent?');
-		Menus.addMenuItem('topbar', 'List a Property', 'property',  '/agent');
+		Menus.addMenuItem('topbar', 'List a Property', 'accomodations/create',  'accomodations/create');
 	}
 ]);

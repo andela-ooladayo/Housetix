@@ -1,21 +1,15 @@
-<section data-ng-controller="AccomodationsController" data-ng-init="findOne()">
+<!-- Edit Photo region -->
+<section data-ng-controller="AccomodationsController" data-ng-init="findOne()" class="container">
     <div class="page-header">
         <h1>Edit Photo</h1>
     </div>
-
         <div class="controls"> 
             <div data-ng-repeat="photo in accomodation.image" >
-
             <img data-ng-src="{{photo.path}}"   style="height:200px; width:200px;" > 
                 <a class="btn btn-primary" data-ng-click="deletePhoto($index);">
                 <i class="glyphicon glyphicon-trash"></i>
                 </a>
             </img> 
-        </div>
-            
-              
-        </div>
-    <div class="col-md-12">
-    
-    </div>
+        </div>      
+    </div> 
 </section>

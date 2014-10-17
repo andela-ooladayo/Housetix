@@ -1,173 +1,385 @@
-.content {
-	margin-top: 50px;
+
+/*********************
+		FONTS
+*********************/
+#search{
+	font-family:ProximaNovaRegular,sans-serif;
 }
-.undecorated-link:hover {
-	text-decoration: none;
+
+#search, #inputBox{
+	font-size: 3.5ex;
 }
-[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-	display: none !important;
+
+html,body{
+	font-family: 'Roboto Condensed', sans-serif;
 }
+
+h2, .listCont ul li, #locationSearch #sub input, #accAddress, #accLocation  {
+	font-weight: bold;
+}
+
+.listCont ul li, #date, #creator, #accAddress, #accLocation, #price, #search{
+	font-size: 4ex;
+}
+
+#locationSearch #inp {
+	font-size: 2.5ex;
+}
+#locationSearch #sub input {
+	font-size: 3.2ex;
+}
+
+#date, #creator, #accAddress, #accLocation, #price, #search {
+	font-family:ProximaNovaRegular,sans-serif;
+}
+
+#accAddress, #accLocation, .footerWidget h3 {
+	font-size: 5ex;
+}
+
+/********************************
+		COLOUR
+**********************************/
+.rent:hover{
+	color: darkblue;
+}
+
 .ng-invalid.ng-dirty{
     border-color:#FA787E;
 }
 .ng-valid.ng-dirty{
     border-color:#78FA89;
 }
+
+.search{
+	background:rgba(120,120,120,0.5);
+}
+
+#search, #locationSearch #loc, #locationSearch #sub input, .glyphicon{
+	color:#fff;
+}
+
+.createForm, .myRentContainer{
+	background-color: rgba(255,255,255,0.95);
+}
+
+html,body, .homeForm, header {
+	background:white;
+}
+
+.btn, .btn-default:hover , #search, .createContainer, #locationSearch {
+	background-color: #01A0E1;
+}
+
+.listCont ul li, .control-label, .modal-body #ar-dyn-messages{
+	color:#01A0E1;
+}
+.searchTemplate, #displaySearch {
+	background:#fff;	
+}
+
+#locationSearch #sub input {
+	background-color: rgba(200,200,0,1);
+}
+
+
+.input-group-addon{
+	background-color: rgba(0,0,255,0.3);
+}
+
+footer{
+	background: #f7f7f7;
+}
+
+
+/*********************
+     sizes and radius
+***********************/
+
+
+.content {
+	margin-top: 50px;
+}
+
+
 .search{
 	width:65%;
 	height: 200px;
-	background:rgba(120,120,120,0.5);
 	margin: 0 auto;
-	margin-top: 5%;
+	margin-top: 15%;
 	border-radius: 15px;
 }
+
 #search{
-	font-family:ProximaNovaRegular,sans-serif;
-	color:#fff;
-	/*vertical-align:top;*/
 	width:20%;
-	background:#01A0E1;
 	margin: 2%;
 	padding:1.7% 5% 1.7% 5%;
-	text-align: center;
-	font-size: 3.5ex;
 	border-radius: 7px;
-	border: none;
-	/*float: right;*/
 }
+
 #inputBox{
 	width:70%;
 	padding:2%;
 	margin-left: 2%;
-	font-size: 3ex;
 	border-radius: 5px;
-	border:1px solid gray;
-	outline: none;
-	text-transform: uppercase;
-	/*float:left;*/
 }
-
-form{
-	background-color: white;
+.homeForm{
 	width: 80%;
 	margin-left: 5%;
-	text-align: left;
-	display: inline-block;
 	height: 90px;
 	border-radius: 10px;
 }
 
+.createForm{
+	width:50%;
+	margin-left: 0%;
+}
+
 h2{
-	text-align: left;
 	padding-top: 3%;
 	padding-left: 4%;
-	font-weight: bold;
 }
 
-html,body{
-	margin: 0%;
-	background:white;
+.locationForm, .createNew, .searchTemplate{
+	width: 100%;
 }
+
+html,body, .createNew, .searchTemplate{
+	margin: 0%;
+}
+
 header{
 	height: 20px;
-	background:#fff;
-}
-.createNew{
-	text-align: center;
-	width: 100%;
-	margin: 0;
-}
-.btn, .btn-default{
-	text-align: center;
-	margin-left: 38%;
-}
-.btn, .btn-default:hover{
-	background-color: #01A0E1;
-};
-.topContainer{
-	/*margin-top: -10%;*/
-}
-.container{
-	display: block;
-	margin-bottom: 5%;
-}
-.listCont{
-	width: 60%;
-	float:right;
-	margin-top:0%;
-	margin-right: 0%;
-	text-align: right;
-}
-.listCont ul li{
-	display: inline-block;
-	font-size: 4ex;
-	font-weight: bold;
-	padding-right: 4%;
-	color:#01A0E1;
-}
-.searchTemplate {
-	height: 600px;
-	width: 100%;
-	background:#fff;
-	margin: 0%;
-}
-.searchContainer{
-	width:100%;
-	
-	display:block;
-	background:lightgreen;
-}
-#locationSearch{
-	height: 75px;
-	width: 100%;
-	background-color: #01A0E1;
-	border: 1px solid blue;
 }
 
-#locationSearch div{
-	
-	display: inline-block;	
-} 
+.btn, .btn-default{
+	margin-left: 38%;
+}
+
+.container{
+	margin-bottom: 5%;
+}
+
+.listCont{
+	width: 60%;
+	margin-top:0%;
+	margin-right: 0%;
+}
+
+
+
+.listCont ul li{
+	padding-right: 4%;
+}
+
+
+.searchContainer, .createContainer, .myRentContaine, #locationSearch,#locationSearch #sub input, #locationSearch #inp input[type="text"]{
+	width:100%;
+}
+
+
+#locationSearch{
+	height: 75px;
+}
+
+
 #locationSearch #loc {
 	margin-left: 5%;
 	width: 8%;
-	color: white;
 }
+
+
 #locationSearch #loc h3{
 	padding-top: .5%;
 }
 
 #locationSearch #inp {
 	margin-top: 1%;
-	width: 60%;
-	font-size: 4ex;
-	
+	width: 40%;
 }
+
 #locationSearch #inp input[type="text"] {
-	width:100%;
 	height: 40px;
 	border-radius: 8px;
 	padding-left: 2%;
-	outline: none;
 }
+
+
 #locationSearch #sub{
 	width: 10%;
 	margin-left: 1%;
 }
+
 #locationSearch #sub input {
 	height: 40px;
-	width: 100%;
 	border-radius:10px;
-	background-color: rgba(200,200,0,1);
-	color: white;
-	font-size: 3.2ex;
-	font-weight: bold;
 }
-#locationSearch #sub input:hover{
-	border:none;
-}
+
+
 #displaySearch{
 	margin-top: 4%;
 	width: 100%;
-	background-color:white;
 }
+
+
+#photos{
+	height:40px;
+}
+.modal-body #ar-dyn-messages{
+	margin-bottom:4%; 
+}
+
+.control-label, .modal-body #ar-dyn-messages {
+	color:#01A0E1;
+}
+
+img {
+    max-width: 110%;
+    height: auto;      
+    }
+
+.padall {
+    padding:10px;
+}
+
+footer{
+	padding: 44px 0 0 0;
+}
+
+.glyphicon-trash{
+	margin-top: 3%;
+}
+
+
+
+/**************************
+			OTHERS
+**************************/
+
+
+
+li a:hover, .undecorated-link:hover{
+	text-decoration: none;
+}
+
+
+ 
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+	display: none !important;
+}
+
+#inputBox{
+	border:1px solid gray;
+	outline: none;
+}
+
+.homeForm{
+	display: inline-block;
+}
+
+.createForm{
+	display: inline-block;
+	text-align: left;
+}
+
+h2{
+	text-align: left;
+}
+
+.locationForm{
+	display: block;
+}
+
+
+.createNew{
+	text-align: center;
+}
+
+
+.btn, .btn-default{
+	text-align: center;
+}
+
+
+.container{
+	display: block;
+}
+
+.listCont{
+	float:right;
+	text-align: right;
+}
+
+.bckLogo{
+	float: left;
+}
+
+.bckLogo, .listCont{
+	display:inline-block;
+}
+
+.listCont ul li{
+	display: inline-block;
+}
+
+
+.searchContainer{
+	display:block;
+	background-size:100%;
+}
+
+.createContainer{
+	text-align: center;
+}
+
+#locationSearch div{
+	display: inline-block;	
+} 
+
+
+#locationSearch #inp input[type="text"] {
+	outline: none;
+}
+
+
+#locationSearch #sub input:hover{
+	border:none;
+}
+
+.modal-body #ar-dyn-messages{
+	text-align:center; 
+}
+
+.control-label, .modal-body #ar-dyn-messages {
+	color:#01A0E1;
+}
+
+img {
+    height: auto;      
+    }
+
+.clearfix {
+    clear:both;
+}
+
+
+.col-md-6:hover{
+    overflow: auto;
+    opacity: 0.8
+}
+
+footer{
+	display: block;
+}
+
+
+#accAddress, #accLocation{
+	text-align:center;
+}
+
+
+
+
+
+
+

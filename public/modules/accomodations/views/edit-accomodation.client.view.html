@@ -1,54 +1,87 @@
+<!--Edit Accomodation Region -->
 <section data-ng-controller="AccomodationsController" data-ng-init="findOne()">
-    <div class="page-header">
-        <h1>Edit Accomodation</h1>
-    </div>
-    <div class="col-md-12">
-        <form class="form-horizontal" data-ng-submit="update()" novalidate>
-            <fieldset>
-                <div class="form-group" ng-class="{ 'has-error': articleForm.title.$dirty && articleForm.title.$invalid }">
-                    <label class="control-label" for="tag">Tag</label>
-                    <div class="controls">
-                        <input name="tag" type="text" data-ng-model="accomodation.tag" id="tag" class="form-control" placeholder="Tag" required>
+    <div class="createContainer">
+        <div class="row">
+            <form role="form" name="accomodationForm" class="createForm" data-ng-submit="update()">
+                <div class="row row-space-top-6 row-space-6">
+                    <div class="col-8 col-middle" style="margin-right:10%;text-align:center">
+                        <h1 class="h2">Edit Your Space</h1>
+                        <p class="text-lead" style="margin-bottom:5% font-size:2.5ex">
+                            Housetix lets you make money renting out your place.
+                        </p>
                     </div>
                 </div>
-                <label class="control-label" for="tag">Number of Room(s)</label>
-                    <div class="controls">
-                        <input name="roomNo" type="text" data-ng-model="accomodation.roomNo" id="roomNo" class="form-control" placeholder="Number of room" required>
+
+                <!-- Tag input region -->
+
+                <div class="col-lg-11 col-middle">
+                    <div class="form-group">
+                        <label for="tag">Tag</label>
+                        <div class="input-group">
+                            <input name="tag" type="text" data-ng-model="accomodation.tag" id="location_input" class="form-control" placeholder="Short description" required><span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                        </div>
                     </div>
 
-                <label class="control-label" for="tag">Price</label>
-                    <div class="controls">
-                        <input name="price" type="text" data-ng-model="accomodation.price" id="price" class="form-control" placeholder="Price" required>
-                    </div>
-                <label class="control-label" for="tag">Location</label>
-                    <div class="controls">
-                        <input name="location" type="text" data-ng-model="accomodation.location" id="location" class="form-control" placeholder="Location" required>
-                    </div>
-                <label class="control-label" for="tag">Address</label>
-                    <div class="controls">
-                        <input name="address" type="text" data-ng-model="accomodation.address" id="tag" class="form-control" placeholder="Address" required>
+                    <!-- Number of Space region -->
+
+                    <div class="form-group">
+                        <label for="roomNo">Number of Space</label>
+                        <div class="input-group">
+                            <input name="roomNo" type="text" data-ng-model="accomodation.roomNo" id="location_input" class="form-control"  placeholder="Number of room" required ><span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                        </div>
                     </div>
 
-                <label class="control-label" for="photo">Accomodation Photo Upload</label>
+                    <!-- Location input region -->
+
+                    <div class="form-group">
+                        <label for="location">Location</label>
+                        <div class="input-group">
+                            <input name="location" type="text" data-ng-model="accomodation.location" id="location_input" class="form-control" placeholder="City name i.e Lagos" onChange="javascript:this.value=this.value.toLowerCase()" required><span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                        </div>
+                    </div>
+
+                    <!-- Price input region -->
+
+                    <div class="form-group">
+                        <label for="price">Price</label>
+                        <div class="input-group">
+                            <input input name="price" type="text" data-ng-model="accomodation.price" id="location_input" class="form-control"  placeholder="Price" required >
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                        </div>
+                    </div>
+
+                    <!-- Address input region -->
+
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <div class="input-group">
+                            <textarea name="address" type="text" data-ng-model="accomodation.address" id="location_input" class="form-control" placeholder="Address"  row="2"required></textarea><span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                        </div>
+                    </div>
+
+                    <!-- Snapshots input region -->
+
+                    <div class="form-group">
+                     <label class="control-label" for="photo">Add Snapshots</label>
                     <div class="controls"> 
                         <div data-ng-repeat="data in datas">
                         <img data-ng-src="{{data.path}}"   style="height:200px; width:200px;" >  
                         </div>
                         <input type="file" data-ng-file-select="onFileSelect($files)" multiple accept="image/png, image/jpeg">
-                          <div class="progress" style="margin-top: 20px;">
-                            <div class="progress-bar" progress-bar="uploadProgress" role="progressbar">
-                              <span ng-bind="uploadProgress"></span>
-                              <span>%</span> 
-                            </div>
-                          </div>
+                        </div>
                     </div>
-                <div class="form-group">
-                    <input type="submit" value="Update" class="btn btn-default">
+                    </div>
+
+                    <!-- Submit and Error region -->
+
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-default" value="Update">
+                    </div>
+                    <div data-ng-show="error" class="text-danger">
+                            <strong data-ng-bind="error"></strong>
+                    </div>
                 </div>
-				<div data-ng-show="error" class="text-danger">
-					<strong data-ng-bind="error"></strong>
-				</div>
-            </fieldset>
-        </form>
+            </form>
+        </div>  
     </div>
 </section>

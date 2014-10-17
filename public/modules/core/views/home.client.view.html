@@ -1,15 +1,177 @@
+
+<!--Client Side Home Page-->
+
 <section data-ng-controller="HomeController" data-ng-init="initializeSearch()" class="topContainer">
-	<!-- <div class="jumbotron text-center" >
- -->
 	<div class="search">
         <h2>SEARCH APARTMENTS & HOMES</h2>
-        <form>
-            
-                <input type="text" id="inputBox" ng-model="inputBox">
-                <input type="submit" value="SEARCH" data-ng-click="search()" id="search">
-            
+        <form class="homeForm" data-ng-submit="search()">
+            <input type="text" id="inputBox" data-ng-model="inputBox" data-ng-keydown="openSearch()"  required>
+            <input type="submit" value="SEARCH" id="search">
         </form>
 	</div>
-		
-	<!-- </div>. -->
+
+    <!--Client Side Home Page >> Our Values-->
+
+    <div class="container" style="margin-top:20%">
+        <h1>Our Values</h1>
+        <div class="row">
+            <div class="row">
+                <div class="col-md-4" >
+                	<img class="thumbnail img-responsive" alt="Bootstrap template" 
+                   		src="../modules/core/img/brand/ts.png" />
+                </div>
+                <div class="col-md-4" >
+                	<img class="thumbnail img-responsive" alt="Bootstrap template" 
+                   		src="../modules/core/img/brand/gg.png" />
+                </div>
+                <div class="col-md-4">
+                	<img class="thumbnail img-responsive" alt="Bootstrap template" 
+                   		src="../modules/core/img/brand/ts.png" />
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
+
+ <!--Client Side Home Page >> Places Search-->
+
+<div class="container" style="margin-top:5%" data-ng-controller="HomeController">
+    <div class="row">
+        <div class="text-center">
+            <h1>Anyplace, Anytime</h1>
+        </div>
+        <div class="row">
+            
+            <div class="col-md-6" data-ng-click="nearSearch('abuja')">
+                
+            	<img class="thumbnail img-responsive" alt="Bootstrap template" 
+               		src="../modules/core/img/brand/ABUJA1.png" />
+                
+            </div>
+            
+            <div class="col-md-6" data-ng-click="nearSearch('benin')">
+
+                    <img class="thumbnail img-responsive" alt="Bootstrap template" 
+                        src="../modules/core/img/brand/BENIN1.png" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6" data-ng-click="nearSearch('ibadan')">
+            	<img class="thumbnail img-responsive" alt="Bootstrap template" 
+               		src="../modules/core/img/brand/IBADAN1.png" />
+               
+            </div>
+            
+            	<div class="col-md-6" data-ng-click="nearSearch('kaduna')">
+                	<img class="thumbnail img-responsive" alt="Bootstrap template" 
+                    src="../modules/core/img/brand/KANUDU1.png" />
+            	</div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-6" data-ng-click="nearSearch('lagos')">
+            	<img class="thumbnail img-responsive" alt="Bootstrap template" 
+               		src="../modules/core/img/brand/LAGOS1.png" />
+               
+            </div>
+            <div class="col-md-6" data-ng-click="nearSearch('portacourt')">
+                <img class="thumbnail img-responsive" alt="Bootstrap template" 
+                    src="../modules/core/img/brand/PORT1.png" />
+            </div>
+        </div>
+    </div>
+
+
+    <!--Client Side Home Page >> Places Search Result Display-->
+
+<section data-ng-controller="HomeController"  class="searchTemplate" data-ng-init="initializeSearch()">
+    <div class="searchContainer" name="exactline" >
+        <div id="displaySearch">
+            <div class="container" >
+                 <div class="row" >
+                 <div data-ng-show="error" class="text-center text-danger">
+                    <strong data-ng-show="error">SEARCH NOT FOUND.TRY ANOTHER LOCATION</strong>
+                 </div>
+                    <div class="col-xs-10 col-sm-10 col-md-6 col-lg-5" data-ng-repeat="search in accomodation">
+                        <div class="panel panel-primary">
+                            <div class="row padall">
+                                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3" data-ng-model="photos">
+                                    <span></span>
+                                    <img data-ng-src="{{search.image[0].path}}" />
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+                                    <div class="clearfix">
+                                        <div class="pull-left">
+                                            <span class="fa fa-dollar icon"> {{search.price}}</span>
+                                        </div>
+                                        <div class="pull-right">
+                                            {{search.tag}}                                
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h4><i class="icon-large icon-search"></i></span>{{search.address}}</h4>
+                                         <span class="fa fa-search icon pull-right" style="text-transform:uppercase">{{search.location}}</span>
+                                    </div>
+                                </div>    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+        </div>   
+    </div>
+</section>
+</div>
+
+
+<!--Client side Home Page footer section -->   
+
+
+<footer id="footerWrapper" class="footer4">
+    <section id="mainFooter">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-sm-6">
+                    <div class="footerWidget">
+                        <h3>About us</h3>
+                        <p><a href="http://andela.co" title="Andela, website template creation">Housetix</a> is a renting service website that provides you with the opporunity of searching anywhere in Nigeria for a space that best suit you. We love what we do and we hope you too ! </p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="footerWidget">
+                        <h3>Newsletter</h3>
+                        <article class="boxNewsletter">
+                            <p>Suscribe to our newsletter to recieve updates from our company</p>
+                            <form class="form-inline" role="form">
+                                <div class="input-group input-group-lg">
+                                    <input type="text" class="form-control lg" placeholder="Search…">
+                                    <span class="input-group-btn">
+                                        <button type="submit" class="btn btn-sm" disabled="true">Go!</button>
+                                    </span>
+                                </div>
+                            </form>
+
+                        </article>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6">
+                    <div class="footerWidget">
+
+                        <h3>Keep in touch</h3>
+                        <h1 class="phone">+ 234-806-734687</h1>
+                        <h4> Andela </h4>
+                        <address>
+                            <p>
+                                <i class="icon-location"></i>&nbsp;Sabo<br>
+                               Lagos, Nigeria <br>
+                                <i class="icon-phone"></i>&nbsp;234.806.7834678 <br>
+                                <i class="icon-mail-alt"></i>&nbsp;<a href="mailto:oladayo.oyelade@andela.co">oladayo.oyelade@andela.co</a>
+                            </p>
+                        </address>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</footer>

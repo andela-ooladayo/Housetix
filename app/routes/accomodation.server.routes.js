@@ -1,13 +1,15 @@
 'use strict';
 
-/**
- * Module dependencies.
- */
+/******
+
+Module dependencies.
+
+*****/
 var users = require('../../app/controllers/users'),
 	accomodations = require('../../app/controllers/accomodation');
 
 module.exports = function(app) {
-	// Article Routes
+	// Accomodation Routes
 	app.route('/accomodations')
 		.get(accomodations.list)
 		.post(users.requiresLogin, accomodations.create);
@@ -16,12 +18,14 @@ module.exports = function(app) {
 		.get(accomodations.read)
 		.put(users.requiresLogin, accomodations.hasAuthorization, accomodations.update)
 		.delete(users.requiresLogin, accomodations.hasAuthorization, accomodations.delete);
+
 	app.route('/accomodations/:accomodationId/editPhoto')
 		.post(accomodations.deletePhoto);
 	
 	app.route('/search')
 		.get(accomodations.search);
-	// Finish by binding the article middleware
+
+	// Finish by binding the Accomodation middleware
 	app.param('accomodationId', accomodations.accomodationByID);
 	
 };

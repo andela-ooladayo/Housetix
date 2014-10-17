@@ -3,7 +3,9 @@
 // Setting up route
 angular.module('users').config(['$stateProvider',
 	function($stateProvider) {
+
 		// Users state routing
+		
 		$stateProvider.
 		state('profile', {
 			url: '/settings/profile',

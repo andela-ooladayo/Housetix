@@ -13,8 +13,10 @@ angular.module('users').controller('PasswordController', ['$scope', '$stateParam
 
 			$http.post('/auth/forgot', $scope.credentials).success(function(response) {
 				// Show user success message and clear form
+				console.log(response);
 				$scope.credentials = null;
 				$scope.success = response.message;
+				console.log(response.message);
 
 			}).error(function(response) {
 				// Show user error message and clear form

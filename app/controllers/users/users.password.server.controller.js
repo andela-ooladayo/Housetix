@@ -1,8 +1,11 @@
 'use strict';
 
-/**
- * Module dependencies.
- */
+/****
+
+Module dependencies.
+
+*****/
+
 var _ = require('lodash'),
 	errorHandler = require('../errors'),
 	mongoose = require('mongoose'),
@@ -14,9 +17,13 @@ var _ = require('lodash'),
 	async = require('async'),
 	crypto = require('crypto');
 
-/**
- * Forgot for reset password (forgot POST)
- */
+
+/*****
+
+Forgot for reset password (forgot POST)
+
+******/
+
 exports.forgot = function(req, res, next) {
 	async.waterfall([
 		// Generate random token
@@ -88,9 +95,12 @@ exports.forgot = function(req, res, next) {
 	});
 };
 
-/**
- * Reset password GET from email token
- */
+/*****
+
+Reset password GET from email token
+
+******/
+
 exports.validateResetToken = function(req, res) {
 	Agent.findOne({
 		resetPasswordToken: req.params.token,
@@ -106,9 +116,12 @@ exports.validateResetToken = function(req, res) {
 	});
 };
 
-/**
- * Reset password POST from email token
- */
+
+/*****
+
+Reset password POST from email token
+
+*****/
 exports.reset = function(req, res, next) {
 	// Init Variables
 	var passwordDetails = req.body;
@@ -186,9 +199,13 @@ exports.reset = function(req, res, next) {
 	});
 };
 
-/**
- * Change Password
- */
+
+/******
+
+Change Password
+
+*****/
+
 exports.changePassword = function(req, res, next) {
 	// Init Variables
 	var passwordDetails = req.body;

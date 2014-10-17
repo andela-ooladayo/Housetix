@@ -1,17 +1,21 @@
+<!-- List Property Section(Create Accomodation) -->
 <section data-ng-controller="AccomodationsController" >
-    <div class="container">
+    <div class="createContainer">
         <div class="row">
-            <form role="form" name="accomodationForm" class="form-horizontal" data-ng-submit="create()"> 
+            <form role="form" name="accomodationForm" class="createForm" data-ng-submit="create()"> 
                 <div class="row row-space-top-6 row-space-6">
-                    <div class="col-4 col-middle text-center">
+                    <div class="col-8 col-middle" style="margin-right:10%;text-align:center">
                         <h1 class="h2">Add Your Space</h1>
-                        <p class="text-lead">
-                        Housetix lets you make money renting out your place.
+                        <p class="text-lead" style="margin-bottom:5% font-size:2.5ex">
+                            Housetix lets you make money renting out your place.
                         </p>
                     </div>
                 </div>
-                <div class="col-lg-6 col-middle">
+                <div class="col-lg-11 col-middle">
                     <div class="well well-sm"><strong><span class="glyphicon glyphicon-asterisk"></span>Required Field</strong></div>
+
+                    <!-- Tag input region -->
+
                     <div class="form-group">
                         <label for="tag">Tag</label>
                         <div class="input-group">
@@ -19,6 +23,9 @@
                             <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                         </div>
                     </div>
+
+                    <!-- Number of Room input region -->
+
                     <div class="form-group">
                         <label for="roomNo">Number of Space</label>
                         <div class="input-group">
@@ -27,13 +34,17 @@
                         </div>
                     </div>
 
+                    <!-- Location input region -->
+
                     <div class="form-group">
                         <label for="location">Location</label>
                         <div class="input-group">
-                            <input name="location" type="text" data-ng-model="house.location" id="location" class="form-control" placeholder="Location" required>
+                            <input name="location" type="text" data-ng-model="house.location" id="location" class="form-control" placeholder="City name i.e Lagos" onChange="javascript:this.value=this.value.toLowerCase()" required>
                             <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                         </div>
                     </div>
+
+                    <!-- Price input region -->
 
                     <div class="form-group">
                         <label for="price">Price</label>
@@ -43,6 +54,8 @@
                         </div>
                     </div>
                     
+                    <!-- Address input region -->
+
                     <div class="form-group">
                         <label for="address">Address</label>
                         <div class="input-group">
@@ -50,23 +63,18 @@
                             <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                         </div>
                     </div>
-                    <div class="row row-space-5 row-space-top-5 row-table">
-                        <div class="col-3 text-right col-middle">
-                            <div class="h4 text-light">Photos</div>
-                        </div>
-                        <div class="col-9 fieldset fieldset_city col-middle">
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="panel location">
-                                        <div class="panel-body panel-light panel-border location-panel-body">
-                                            <i class="icon icon icon-map-marker icon-kazan h4 pull-left"></i>
-                                            <input type="file" ng-file-select="onFileSelect($files)" multiple accept="image/*">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
+                    <!-- Photos input region -->
+
+                    <div class="form-group">
+                        <label for="address">Space Snapshots</label>
+                        <div id="photos">
+                            <input name="photos" type="file" ng-file-select="onFileSelect($files)" multiple accept="image/*">
                         </div>
                     </div>
+
+                    <!-- Submit and Error Region -->
+                    
                     <div class="form-group">
                         <input type="submit" class="btn btn-default">
                     </div>
@@ -75,6 +83,6 @@
                     </div>
                 </div>
             </form>
-            </center>
-        </div>
+        </div>  
+    </div>
 </section>

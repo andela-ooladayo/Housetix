@@ -9,47 +9,48 @@ angular.module('accomodations').controller('AccomodationsController', ['$scope',
 		$scope.create = function() {
 			// Create new Accomodation object
 			var accomodation = new Accomodations($scope.house);
+
+			//set accomodation images to 64bit string files
 			accomodation.image = $scope.stringFiles;
-			// console.log($scope.house);
+
+			//Save new accomodation
 			accomodation.$save(function(response) {
-                 
-                 $scope.datas = response.image;
-                 console.log($scope.datas);
-                 $scope.house='';
-                
-                 // $location.path('/');
-            }, function(error) {
-                  console.log(error);
+                $scope.datas = response.image;
+                $scope.house='';
+                //Redirect page to Home Page
+                $location.path('/');
+            }, function(errorResponse) {
+                $scope.error = errorResponse.data.message;
 			});
 		};
 
    	    $scope.onFileSelect = function ($files) {
+   	    	//initial variables
             $scope.uploadProgress = 0;
             $scope.files = $files;
             $scope.stringFiles = [];
 
-            // console.log($scope.files); 
+            //Use angular File reader to convert image into string
         	if ($scope.files) {
         		for (var i in $scope.files) {
-        			console.log($scope.files);
+        			//Accept only JPEG AND PNG format
 	                if ($scope.files[i].type === 'image/jpeg' || $scope.files[i].type === 'image/png'){
+	                    //Create new instance of filerader
 	                    var reader = new FileReader();
 	                    reader.onload = function(e) {
+	                    	//Load the Image string into path
                             $scope.stringFiles.push({path: e.target.result});
 	                    };
 	                    reader.readAsDataURL($scope.files[i]);
 	                    $scope.correctFormat = true; 
 	                } else {
-	                	alert('error');
-
 	                   $scope.correctFormat = false; 
 	                }
 	            }
-            }
+            };
 
           };
           
-
 		// Remove existing Accomodation
 		$scope.remove = function(accomodation) {
 			if (accomodation) { 
@@ -67,66 +68,47 @@ angular.module('accomodations').controller('AccomodationsController', ['$scope',
 			}
 		};
 
+		
 
-
-
+		// Delete existing image from the set of images
 		$scope.deletePhoto = function(index) {
+			//Create new instance of Photo delecting operation
 			var photo = new Photo({ 
 				accomodationId: $stateParams.accomodationId,
 				index: index
 			});
 
 			photo.$save(function(response){
-				console.log(response)
+				console.log(response);
+				$location.path('accomodations/');
 			});
-        	
-
     	};
 	
-			// }, function(errorResponse) {
-			// 	$scope.error = errorResponse.data.message;
-			// };
 
 		
  
 		//Update existing Accomodation
 		$scope.update = function() {
-
+			//initial variable
 			var accomodation = $scope.accomodation;
-			console.log($scope.accomodation);
+
 			accomodation.$update(function() {
-				
-				$location.path('accomodations/' + accomodation._id);
+			$location.path('accomodations/' + accomodation._id);
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
 		};
 
-		// Edit Accomodation Pictures
-		// $scope.editPhoto = function(){
-		// 	// $location.path('/editPhoto');
-		// 	Accomodations.get({ 
-		// 		accomodationId: $stateParams.accomodationId
-		// 		},
-		// 		function success(reply){
-		// 			$scope.accomodation=reply;
-		// 			console.log($scope.accomodation);
-		// 		}
-		// 		);
-
-		// 	};
-
+	
 		// Find a list of Accomodations
 		$scope.find = function() {
 			Accomodations.query(
 				function success(response) {
-					console.log(response);
 					$scope.accomodations = response;
 					$scope.photos=response.image;
-					console.log($scope.photos);
 				},
-				function(err) {
-					console.log(err);
+				function(errorResponse) {
+					$scope.error = errorResponse.data.message;
 				}
 			);
 		};
@@ -137,17 +119,15 @@ angular.module('accomodations').controller('AccomodationsController', ['$scope',
 				accomodationId: $stateParams.accomodationId
 			}), function(response){
 				$scope.photos=$scope.accomodation.image;
-				console.log($scope.photos);
 			};	
 		};
+
+		//List accomodation by Current User
 		$scope.profile = function() {
 			 Agent.query(
 			 	function success (response){
-				
-				console.log(response);
+			
 			});	
 		};
-
-
 	}
 ]);

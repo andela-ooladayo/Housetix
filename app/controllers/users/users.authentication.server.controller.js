@@ -1,8 +1,10 @@
 'use strict';
 
-/**
- * Module dependencies.
- */
+/****
+
+ Module dependencies.
+
+ ****/
 
 var _ = require('lodash'),
     errorHandler = require('../errors'),
@@ -12,18 +14,17 @@ var _ = require('lodash'),
 	User = mongoose.model('User'),
 	Customer = mongoose.model('Customer');
 
-/**
- * Signup
- */
+/*******
+
+Signup
+
+******/
 
 exports.signup = function(req, res) {
 	// For security measurement we remove the roles from the req.body object
-	console.log(req);
 	delete req.body.roles;
-
 	// Init Variables
 	var type = req.body.type;
-	console.log(type);
 	var user;
 	//Selecting the Schema to input user's profile
 	if (type === 'Agent') {
@@ -33,14 +34,10 @@ exports.signup = function(req, res) {
 	else {
 		user = new Customer(req.body);
 		user.displayName = user.yourName;
-
 	}
 	var message = null;
-
 	// Add missing user fields
 	user.provider = 'local';
-	
-
 	// Then save the user 
 	user.save(function(err) {
 		if (err) {
@@ -49,7 +46,7 @@ exports.signup = function(req, res) {
 			});
 		}
 		else {
-			// Remove sensitive data before login
+			// Remove sensitive information before login
 			user.password = undefined;
 			user.salt = undefined;
 
@@ -61,13 +58,15 @@ exports.signup = function(req, res) {
 					res.jsonp(user);
 				}
 			});
-		}
+		};
 	});
 };
 
-/**
- * Signin after passport authentication
- */
+/****
+
+Signin after authentication of the user
+
+*****/
 
 exports.signin = function(req, res, next) {
 	passport.authenticate('local', function(err, user, info) {
@@ -91,18 +90,23 @@ exports.signin = function(req, res, next) {
 	})(req, res, next);
 };
 
-/**
- * Signout
- */
+/******
+
+Signout
+
+******/
 
 exports.signout = function(req, res) {
 	req.logout();
 	res.redirect('/');
 };
 
-/**
- * OAuth callback
- */
+
+/******
+
+OAuth callback
+
+******/
 
 exports.oauthCallback = function(strategy) {
 	return function(req, res, next) {
@@ -121,9 +125,12 @@ exports.oauthCallback = function(strategy) {
 	};
 };
 
-/**
- * Helper function to save or update a OAuth user profile
- */
+
+/*****
+
+Helper function to save or update a OAuth user profile
+
+******/
 
 exports.saveOAuthUserProfile = function(req, providerUserProfile, done) {
 	if (!req.user) {
@@ -182,6 +189,7 @@ exports.saveOAuthUserProfile = function(req, providerUserProfile, done) {
 
 		// Check if user exists, is not signed in using this provider, and doesn't have that provider data already configured
 		if (user.provider !== providerUserProfile.provider && (!user.additionalProvidersData || !user.additionalProvidersData[providerUserProfile.provider])) {
+			
 			// Add the provider data to the additional provider data field
 			if (!user.additionalProvidersData) user.additionalProvidersData = {};
 			user.additionalProvidersData[providerUserProfile.provider] = providerUserProfile.providerData;
@@ -200,9 +208,11 @@ exports.saveOAuthUserProfile = function(req, providerUserProfile, done) {
 	}
 };
 
-/**
- * Remove OAuth provider
- */
+/*****
+
+Remove OAuth provider
+
+*****/
 
 exports.removeOAuthProvider = function(req, res, next) {
 	var user = req.user;

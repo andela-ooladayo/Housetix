@@ -1,8 +1,11 @@
 'use strict';
 
-/**
- * Module dependencies.
- */
+/******
+
+Module dependencies.
+
+*****/
+
 var _ = require('lodash'),
 	errorHandler = require('../errors'),
 	mongoose = require('mongoose'),
@@ -10,9 +13,13 @@ var _ = require('lodash'),
 	User = mongoose.model('Agent'),
 	Accomodation = mongoose.model('Accomodation');
 
-/**
- * Update user details
- */
+
+/*****
+
+Update user details
+
+******/
+
 exports.update = function(req, res) {
 	// Init Variables
 	var user = req.user;
@@ -49,12 +56,22 @@ exports.update = function(req, res) {
 	}
 };
 
-/**
- * Send User
- */
+/******
+
+Send User
+
+****/
+
 exports.me = function(req, res) {
 	res.jsonp(req.user || null);
 };
+
+
+/******
+
+Agent Identification by ID
+
+****/
 
 exports.agentByID = function(req, res, next, id) {
 	User.findById(id).exec(function(err, user) {
@@ -65,8 +82,14 @@ exports.agentByID = function(req, res, next, id) {
 	});
 };
 
+
+/******
+
+SPECIFIC AGENT"S PROPERTY
+
+****/
+
 exports.getByUserId = function(req, res) {
-	console.log(req);
 	Accomodation.where('user').equals(req.user._id).exec(function(err, accomodation){
 
 		if (err) {
